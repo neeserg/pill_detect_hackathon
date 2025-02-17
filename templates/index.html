@@ -15,10 +15,22 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8  offset-lg-2">
-            <h3 class="mt-5">Live Streaming</h3>
+            <h3 class="mt-5">Pill Counter</h3>
             <img src="{{ url_for('video_feed') }}" width="100%">
         </div>
+        <p id="count"></p>
     </div>
 </div>
+
+<script>
+    var clock = document.getElementById("count");
+
+    setInterval(() => {
+        fetch("{{ url_for('count_feed') }}")
+        .then(response => {
+                response.text().then(t => {clock.innerHTML = t})
+            });
+        }, 1000);  
+</script>
 </body>
 </html>

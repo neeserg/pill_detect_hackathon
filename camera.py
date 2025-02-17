@@ -3,7 +3,7 @@ import numpy as np
 from ultralytics import YOLO
 import supervision as sv
 # Open the default camera
-cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(0)
 
 # Get the default frame width and height
 frame_width = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -24,12 +24,12 @@ while True:
     # limg = cv2.merge((cl, a, b))
     # final = cv2.cvtColor(limg, cv2.COLOR_LAB2BGR)
     # frame = final
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    lwr = np.array([0, 0, 189])
-    upp = np.array([255, 70, 255])
-    img_mask = cv2.inRange(hsv, lwr, upp)
+    # hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    # lwr = np.array([0, 0, 189])
+    # upp = np.array([255, 70, 255])
+    # img_mask = cv2.inRange(hsv, lwr, upp)
     
-    frame = cv2.bitwise_and(frame, frame, mask=img_mask)    
+    # frame = cv2.bitwise_and(frame, frame, mask=img_mask)    
     result = model.predict(frame)
     detections = sv.Detections.from_ultralytics(result[0])
     annotated_image = bounding_box_annotator.annotate(
