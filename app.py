@@ -5,9 +5,9 @@ import numpy as np
 import supervision as sv
 
 app = Flask(__name__)
-
+WEBCAM_NUM =1 ## CHANGE THIS to swap webcam in mac.
 _number_of_detected_objects = 0
-cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(WEBCAM_NUM)
 frame_width = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
 label_annotator = sv.LabelAnnotator()
@@ -38,8 +38,6 @@ def get_prediction(frame,model):
 
 def gen_frames():  # generate frame by frame from camera
     model = YOLO('my_custom.pt')
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (frame_width, frame_height))  
     while True:
         # Capture frame-by-frame
         success, frame = cam.read()  # read the camera frame
